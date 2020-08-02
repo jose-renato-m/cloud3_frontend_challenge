@@ -1,10 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 
-function App() {
-  return (
-    <h1>Hello World</h1>
-  );
-}
+import Dashboard from './pages/Dashboard';
+import GlobalStyle from './styles/global';
+
+const App: React.FC = () => (
+  <>
+    <Dashboard />
+    <GlobalStyle />
+  </>
+);
 
 export default App;
