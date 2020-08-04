@@ -87,3 +87,26 @@ export const Background = styled.div`
   background: url(${dashboardBackgroundImg}) no-repeat center;
   background-size: cover;
 `;
+
+export const Contacts = styled.div`
+  margin-top: 8px;
+
+  display: flex;
+  justify-content: space-around;
+
+  ul {
+    background: #232129;
+    border-radius: 5px;
+    padding: 5px;
+    list-style-type: none;
+  }
+
+  li.header {
+    font-weight: bold;
+    color: #ff9000;
+  }
+
+  li.content {
+    color: #666360;
+  }
+`;

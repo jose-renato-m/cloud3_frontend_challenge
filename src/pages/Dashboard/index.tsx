@@ -1,37 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
-import { Container, Content, Background } from './styles';
+import { Contacts, Container, Content, Background } from './styles';
 
-const Dashboard: React.FC = () => (
-  <>
-    <Container>
-      <Content>
-        <img src={logoImg} alt="Nuvem3" />
+const Dashboard: React.FC = () => {
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPhone, setNewPhone] = useState('');
 
-        <form>
-          <h1>Cadastro de registros</h1>
+  return (
+    <>
+      <Container>
+        <Content>
+          <img src={logoImg} alt="Nuvem3" />
 
-          <input placeholder="Nome" />
+          <form>
+            <h1>Cadastro de registros</h1>
 
-          <input placeholder="E-mail" />
+            <input
+              value={newName}
+              onChange={e => setNewName(e.target.value)}
+              placeholder="Nome"
+            />
 
-          <input placeholder="Telefone" />
+            <input
+              value={newEmail}
+              onChange={e => setNewEmail(e.target.value)}
+              placeholder="E-mail"
+            />
 
-          <button type="submit" className="include">
-            Incluir Registro
-          </button>
+            <input
+              value={newPhone}
+              onChange={e => setNewPhone(e.target.value)}
+              placeholder="Telefone"
+            />
 
-          <button type="button" className="exclude">
-            Excluir Registro
-          </button>
-        </form>
-      </Content>
+            <button type="submit" className="include">
+              Incluir Registro
+            </button>
 
-      <Background />
-    </Container>
-  </>
-);
+            <button type="button" className="exclude">
+              Excluir Registro
+            </button>
+          </form>
+        </Content>
+
+        <Background />
+      </Container>
+
+      <Contacts>
+        <ul>
+          <li className="header">Id</li>
+          <li className="content">9597732</li>
+        </ul>
+        <ul>
+          <li className="header">Nome</li>
+          <li className="content">Jose Renato</li>
+        </ul>
+        <ul>
+          <li className="header">Email</li>
+          <li className="content">jrenato78@gmail.com</li>
+        </ul>
+        <ul>
+          <li className="header">Telefone</li>
+          <li className="content">976134425</li>
+        </ul>
+      </Contacts>
+    </>
+  );
+};
 
 export default Dashboard;
