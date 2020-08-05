@@ -1,112 +1,43 @@
 import styled from 'styled-components';
-import { shade } from 'polished';
-
-import dashboardBackgroundImg from '../../assets/dashboard-background.png';
 
 export const Container = styled.div`
-  height: 100vh;
-
-  display: flex;
-  align-items: stretch;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  place-content: center;
-
   width: 100%;
-  max-width: 700px;
-
-  form {
-    margin: 80px 0;
-    width: 340px;
-    text-align: center;
-  }
-
-  h1 {
-    margin-bottom: 24px;
-  }
-
-  input {
-    background: #232129;
-    border-radius: 10px;
-    border: 2px solid #232129;
-    padding: 16px;
-    width: 100%;
-    color: #f4ede8;
-
-    &::placeholder {
-      color: #666360;
-    }
-
-    & + input {
-      margin-top: 8px;
-    }
-  }
-
-  button.include {
-    background: #ff9000;
-    height: 56px;
-    border-radius: 10px;
-    border: 0;
-    padding: 0 16px;
-    color: #312e38;
-    width: 100%;
-    font-weight: 500;
-    margin-top: 18px;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background: ${shade(0.2, '#ff9000')};
-    }
-  }
-
-  button.exclude {
-    background: #ff9000;
-    height: 56px;
-    border-radius: 10px;
-    border: 0;
-    padding: 0 16px;
-    color: #312e38;
-    width: 100%;
-    font-weight: 500;
-    margin-top: 8px;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background: ${shade(0.2, '#ff9000')};
-    }
-  }
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 20px;
 `;
 
-export const Background = styled.div`
-  flex: 1;
-  background: url(${dashboardBackgroundImg}) no-repeat center;
-  background-size: cover;
-`;
+export const TableContainer = styled.section`
+  margin-top: 54px;
 
-export const Contacts = styled.div`
-  margin-top: 8px;
+  table {
+    width: 100%;
+    border-spacing: 0 8px;
 
-  display: flex;
-  justify-content: space-around;
+    th {
+      color: #969cb3;
+      font-weight: normal;
+      padding: 20px 32px;
+      text-align: left;
+      font-size: 16px;
+      line-height: 24px;
+    }
 
-  ul {
-    background: #232129;
-    border-radius: 5px;
-    padding: 5px;
-    list-style-type: none;
-  }
+    td {
+      padding: 20px 32px;
+      border: 0;
+      background: #fff;
+      font-size: 16px;
+      font-weight: normal;
+      color: #969cb3;
+    }
 
-  li.header {
-    font-weight: bold;
-    color: #ff9000;
-  }
+    td:first-child {
+      border-radius: 8px 0 0 8px;
+    }
 
-  li.content {
-    color: #666360;
+    td:last-child {
+      border-radius: 0 8px 8px 0;
+    }
   }
 `;

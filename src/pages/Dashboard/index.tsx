@@ -1,74 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
 
-import logoImg from '../../assets/logo.svg';
+import Header from '../../components/Header';
 
-import { Contacts, Container, Content, Background } from './styles';
+import { Container, TableContainer } from './styles';
+
+interface Contact {
+  Id: string;
+  Nome: string;
+  Email: string;
+  Telefone: number;
+}
 
 const Dashboard: React.FC = () => {
-  const [newName, setNewName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPhone, setNewPhone] = useState('');
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
+    async function loadContacts(): Promise<void> {
+      const response = await api.get('/contacts');
+
+      const contactsLoaded = response.data.map((contact: Contact) => ({
+        ...contact,
+        contacts,
+      }));
+
+      setContacts(contactsLoaded);
+    }
+
+    loadContacts();
+  }, [contacts]);
 
   return (
     <>
+      <Header />
       <Container>
-        <Content>
-          <img src={logoImg} alt="Nuvem3" />
+        <TableContainer>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+              </tr>
+            </thead>
 
-          <form>
-            <h1>Cadastro de registros</h1>
-
-            <input
-              value={newName}
-              onChange={e => setNewName(e.target.value)}
-              placeholder="Nome"
-            />
-
-            <input
-              value={newEmail}
-              onChange={e => setNewEmail(e.target.value)}
-              placeholder="E-mail"
-            />
-
-            <input
-              value={newPhone}
-              onChange={e => setNewPhone(e.target.value)}
-              placeholder="Telefone"
-            />
-
-            <button type="submit" className="include">
-              Incluir Registro
-            </button>
-
-            <button type="button" className="exclude">
-              Excluir Registro
-            </button>
-          </form>
-        </Content>
-
-        <Background />
+            <tbody>
+              {contacts.map(contact => (
+                <tr key={contact.Id}>
+                  <td>{contact.Id}</td>
+                  <td>{contact.Nome}</td>
+                  <td>{contact.Email}</td>
+                  <td>{contact.Telefone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableContainer>
       </Container>
-
-      <Contacts>
-        <ul>
-          <li className="header">Id</li>
-          <li className="content">9597732</li>
-        </ul>
-        <ul>
-          <li className="header">Nome</li>
-          <li className="content">Jose Renato</li>
-        </ul>
-        <ul>
-          <li className="header">Email</li>
-          <li className="content">jrenato78@gmail.com</li>
-        </ul>
-        <ul>
-          <li className="header">Telefone</li>
-          <li className="content">976134425</li>
-        </ul>
-      </Contacts>
     </>
   );
 };
