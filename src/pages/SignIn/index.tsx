@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from '../../components/Button';
 
@@ -8,7 +9,9 @@ const SignIn: React.FC = () => (
   <Container>
     <Content>
       <form>
-        <Button type="submit">Acessar Registros</Button>
+        <Button type="submit">
+          <Link to="/dashboard">Acessar registros</Link>
+        </Button>
       </form>
     </Content>
 

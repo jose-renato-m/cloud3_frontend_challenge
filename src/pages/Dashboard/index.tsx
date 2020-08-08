@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
+import ModalAdd from '../../components/ModalAdd';
+import ModalEdit from '../../components/ModalEdit';
 
 import { Container, TableContainer } from './styles';
 
 interface Contact {
-  Id: string;
+  Id: number;
   Nome: string;
   Email: string;
   Telefone: number;
@@ -15,6 +17,9 @@ interface Contact {
 
 const Dashboard: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadContacts(): Promise<void> {
@@ -31,10 +36,31 @@ const Dashboard: React.FC = () => {
     loadContacts();
   }, [contacts]);
 
+  async function handleDeleteContact(id: number): Promise<void> {
+    await api.delete(`/contacts/${id}`);
+
+    const updatedState = contacts.filter(contact => contact.Id !== id);
+
+    setContacts(updatedState);
+  }
+
+  function toggleModal(): void {
+    setModalOpen(!modalOpen);
+  }
+
+  function toggleEditModal(): void {
+    setEditModalOpen(!editModalOpen);
+  }
+
   return (
     <>
       <Header />
       <Container>
+        <button type="button" onClick={() => setModalOpen(true)}>
+          Criar Registro
+        </button>
+        <ModalAdd isOpen={modalOpen} setIsOpen={toggleModal} />
+        <ModalEdit isOpen={editModalOpen} setIsOpen={toggleEditModal} />
         <TableContainer>
           <table>
             <thead>
@@ -53,6 +79,22 @@ const Dashboard: React.FC = () => {
                   <td>{contact.Nome}</td>
                   <td>{contact.Email}</td>
                   <td>{contact.Telefone}</td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteContact(contact.Id)}
+                    >
+                      Deletar
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => setEditModalOpen(true)}
+                    >
+                      Editar
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
