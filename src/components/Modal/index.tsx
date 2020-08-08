@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from './styles';
 
 interface IModalProps {
+  /*eslint-disable*/
   children: any;
   isOpen: boolean;
   setIsOpen: () => void;

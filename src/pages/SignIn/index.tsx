@@ -9,9 +9,9 @@ const SignIn: React.FC = () => (
   <Container>
     <Content>
       <form>
-        <Button type="submit">
-          <Link to="/dashboard">Acessar registros</Link>
-        </Button>
+        <Link to="/dashboard">
+          <Button type="submit">Acessar Registros</Button>
+        </Link>
       </form>
     </Content>
 
