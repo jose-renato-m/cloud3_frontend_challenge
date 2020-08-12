@@ -1,22 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import Button from '../../components/Button';
-
-import { Container, Content, Background } from './styles';
+import { Button } from 'react-bootstrap';
 
 const SignIn: React.FC = () => (
-  <Container>
-    <Content>
-      <form>
-        <Link to="/dashboard">
-          <Button type="submit">Acessar Registros</Button>
-        </Link>
-      </form>
-    </Content>
-
-    <Background />
-  </Container>
+  <Link to="/dashboard">
+    <Button variant="secondary" type="submit">
+      Acessar Registros
+    </Button>
+  </Link>
 );
 
 export default SignIn;
