@@ -17,15 +17,16 @@ interface Contact {
 interface IModalProps {
   isOpen: boolean;
   setIsOpen: () => void;
+  contact: Contact;
 }
 
-const ModalEdit: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
+const ModalEdit: React.FC<IModalProps> = ({ isOpen, setIsOpen, contact }) => {
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   const [id, setId] = useState<number>();
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [telefone, setTelefone] = useState('');
+  const [nome, setNome] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [telefone, setTelefone] = useState<number>();
 
   async function handleEditContact(Id?: number): Promise<void> {
     const response = await api.put<Contact>('/contacts', {
@@ -47,21 +48,25 @@ const ModalEdit: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
           name="Id"
           value={id}
           onChange={e => setId(Number(e.target.value))}
+          defaultValue={contact.Id}
         />
         <Input
           name="Nome"
           value={nome}
           onChange={e => setNome(e.target.value)}
+          defaultValue={contact.Nome}
         />
         <Input
           name="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          defaultValue={contact.Email}
         />
         <Input
           name="Telefone"
           value={telefone}
-          onChange={e => setTelefone(e.target.value)}
+          onChange={e => setTelefone(Number(e.target.value))}
+          defaultValue={contact.Telefone}
         />
 
         <button type="submit">

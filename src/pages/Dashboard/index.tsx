@@ -20,6 +20,7 @@ const Dashboard: React.FC = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editContact, setEditContact] = useState<Contact>({} as Contact);
 
   useEffect(() => {
     async function loadContacts(): Promise<void> {
@@ -60,7 +61,11 @@ const Dashboard: React.FC = () => {
           Criar Registro
         </button>
         <ModalAdd isOpen={modalOpen} setIsOpen={toggleModal} />
-        <ModalEdit isOpen={editModalOpen} setIsOpen={toggleEditModal} />
+        <ModalEdit
+          isOpen={editModalOpen}
+          setIsOpen={toggleEditModal}
+          contact={editContact}
+        />
         <TableContainer>
           <table>
             <thead>
@@ -92,7 +97,12 @@ const Dashboard: React.FC = () => {
                       type="button"
                       onClick={() => setEditModalOpen(true)}
                     >
-                      Editar
+                      <button
+                        type="button"
+                        onClick={() => setEditContact(contact)}
+                      >
+                        Editar
+                      </button>
                     </button>
                   </td>
                 </tr>
