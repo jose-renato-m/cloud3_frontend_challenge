@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 
 import api from '../../services/api';
 
-import Header from '../../components/Header';
 import ModalAdd from '../../components/ModalAdd';
 import ModalEdit from '../../components/ModalEdit';
-
-import { Container, TableContainer } from './styles';
 
 interface Contact {
   Id: number;
@@ -55,62 +54,62 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Header />
-      <Container>
-        <button type="button" onClick={() => setModalOpen(true)}>
-          Criar Registro
-        </button>
-        <ModalAdd isOpen={modalOpen} setIsOpen={toggleModal} />
-        <ModalEdit
-          isOpen={editModalOpen}
-          setIsOpen={toggleEditModal}
-          contact={editContact}
-        />
-        <TableContainer>
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {contacts.map(contact => (
-                <tr key={contact.Id}>
-                  <td>{contact.Id}</td>
-                  <td>{contact.Nome}</td>
-                  <td>{contact.Email}</td>
-                  <td>{contact.Telefone}</td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteContact(contact.Id)}
-                    >
-                      Deletar
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => setEditModalOpen(true)}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setEditContact(contact)}
-                      >
-                        Editar
-                      </button>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </TableContainer>
-      </Container>
+      <Button
+        type="button"
+        variant="success"
+        onClick={() => setModalOpen(true)}
+      >
+        Criar Registro
+      </Button>
+      <ModalAdd isOpen={modalOpen} setIsOpen={toggleModal} />
+      <ModalEdit
+        isOpen={editModalOpen}
+        setIsOpen={toggleEditModal}
+        contact={editContact}
+      />
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ação</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map(contact => (
+            <tr key={contact.Id}>
+              <td>{contact.Id}</td>
+              <td>{contact.Nome}</td>
+              <td>{contact.Email}</td>
+              <td>{contact.Telefone}</td>
+              <td>
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => handleDeleteContact(contact.Id)}
+                >
+                  Deletar
+                </Button>
+              </td>
+              <td>
+                <Button
+                  type="button"
+                  variant="warning"
+                  onClick={() => {
+                    setEditModalOpen(true);
+                    setEditContact(contact);
+                  }}
+                >
+                  Editar
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </>
   );
 };
